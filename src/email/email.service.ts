@@ -25,6 +25,7 @@ export class EmailService {
         config
       );
 
+      /** Create success email log */
       await emailLogsModel.create({
         email: param.email,
         status: SendEmailStatus.SUCCESS,
@@ -42,6 +43,7 @@ export class EmailService {
         errorMessage = error.message;
       }
 
+      /** Create failed email log */
       await emailLogsModel.create({
         email: param.email,
         status: SendEmailStatus.FAILED,

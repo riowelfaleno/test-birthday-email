@@ -8,8 +8,7 @@ const emailServiceObj = new EmailService();
 
 export class BirthdayService {
   public async sendBirthdayMessage() {
-    const currentDate = moment.utc();
-
+    /** Query users which birthday is today */
     const users = await userModel.aggregate([
       {
         $project: {
@@ -33,10 +32,8 @@ export class BirthdayService {
       },
     ]);
 
-    const adjustedScheduledTime = currentDate.clone();
-
     for (const user of users) {
-      const userLocalTime = adjustedScheduledTime.tz(user.timezone);
+      const userLocalTime = moment.utc().tz(user.timezone);
 
       /** Send birthday email at 9AM in the local time */
       if (userLocalTime.hour() === 5 && userLocalTime.minute() === 18) {
@@ -57,6 +54,7 @@ export class BirthdayService {
   }
 
   public async sendFailedMessages() {
+    /** Get failed email from the logs */
     const getFailedEmail = await emailLogsModel.find({
       status: SendEmailStatus.FAILED,
       isResolved: false,
@@ -71,6 +69,7 @@ export class BirthdayService {
           continue;
         }
 
+        /** If user birthday is today, send the email */
         if (
           new Date(user.dob).getMonth() === new Date().getMonth() &&
           new Date(user.dob).getDate() === new Date().getDate()
@@ -80,6 +79,7 @@ export class BirthdayService {
             message: `Hey ${user.firstName} ${user.lastName}, it’s your birthday`,
           });
 
+          /** Update isResolved to true */
           await emailLogsModel.findOneAndUpdate(
             { id: failedEmail._id },
             { isResolved: true }

@@ -8,6 +8,7 @@ import userModel, { IUserLean } from "./user.model";
 
 export class UserService {
   public async createUser(param: CreateUserParam) {
+    /** Check if email exist */
     const checkEmailExist = await userModel.findOne({
       email: param.email,
       isDeleted: false,

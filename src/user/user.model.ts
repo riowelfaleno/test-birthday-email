@@ -6,6 +6,7 @@ export interface IUserLean {
   lastName: string;
   email: string;
   dob: Date;
+  timezone: string;
   isDeleted?: boolean;
 }
 
@@ -18,6 +19,7 @@ const UserSchema: Schema = new Schema(
     lastName: { type: String },
     email: { type: String },
     dob: { type: Date },
+    timezone: { type: String },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }

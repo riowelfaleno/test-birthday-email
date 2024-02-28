@@ -3,6 +3,7 @@ export interface CreateUserParam {
   lastName: string;
   email: string;
   dob: string;
+  timezone: string;
 }
 
 export interface DeleteUserParam {
@@ -14,4 +15,5 @@ export interface UpdateUserParam {
   lastName: string;
   email: string;
   dob: string;
+  timezone: string;
 }

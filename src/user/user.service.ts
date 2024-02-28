@@ -21,6 +21,7 @@ export class UserService {
       lastName: param.lastName,
       email: param.email,
       dob: moment(param.dob).toDate(),
+      timezone: param.timezone,
     };
 
     const createUser = await userModel.create(createParam);
@@ -59,6 +60,7 @@ export class UserService {
       lastName: param.lastName,
       email: param.email,
       dob: moment(param.dob).toDate(),
+      timezone: param.timezone,
     };
 
     const updateUser = await userModel.findByIdAndUpdate(

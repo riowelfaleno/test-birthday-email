@@ -9,5 +9,5 @@ mongoose.set("debug", true);
 const dbMongo = mongoose.connection;
 dbMongo.on("error", console.error.bind(console, "Connection error "));
 dbMongo.once("open", function () {
-  console.log("DB Mongo Connected successfully...");
+  console.log("MongoDB connection established");
 });

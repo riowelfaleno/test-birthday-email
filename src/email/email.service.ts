@@ -28,6 +28,7 @@ export class EmailService {
       await emailLogsModel.create({
         email: param.email,
         status: SendEmailStatus.SUCCESS,
+        isResolved: true,
         errorMessage: "",
       });
 
@@ -44,6 +45,7 @@ export class EmailService {
       await emailLogsModel.create({
         email: param.email,
         status: SendEmailStatus.FAILED,
+        isResolved: false,
         errorMessage,
       });
 

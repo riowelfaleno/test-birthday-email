@@ -21,8 +21,8 @@ cron.schedule(
     try {
       const birthdayService = new BirthdayService();
 
-      birthdayService.sendBirthdayMessage();
-      birthdayService.sendFailedMessages();
+      await birthdayService.sendBirthdayMessage();
+      await birthdayService.sendFailedMessages();
 
       console.log("Cronjob done");
     } catch (error) {

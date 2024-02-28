@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { Request, Response } from "express";
-import userModel from "./user.model";
 import { UserService } from "./user.service";
+import validator from "validator";
 
 export class UserController {
   private userService;
@@ -14,11 +14,15 @@ export class UserController {
   }
 
   public async createUser(req: Request, res: Response) {
-    const { firstName, lastName, email, dob } = req.body;
+    const { firstName, lastName, email, dob, timezone } = req.body;
 
     try {
-      if (!firstName || !lastName || !email || !dob) {
+      if (!firstName || !lastName || !email || !dob || !timezone) {
         throw new Error("Missing parameters");
+      }
+
+      if (!validator.isEmail(email)) {
+        throw new Error("Invalid email");
       }
 
       const createUser = await this.userService.createUser({
@@ -26,6 +30,7 @@ export class UserController {
         lastName,
         email,
         dob,
+        timezone,
       });
 
       return res.send(createUser);
@@ -55,8 +60,6 @@ export class UserController {
 
       await this.userService.deleteUser({ email });
 
-      console.log("done");
-
       return res.sendStatus(200);
     } catch (error: any) {
       let errorMessage;
@@ -75,7 +78,7 @@ export class UserController {
   }
 
   public async updateUser(req: Request, res: Response) {
-    const { firstName, lastName, dob } = req.body;
+    const { firstName, lastName, dob, timezone } = req.body;
     const { email } = req.params;
 
     try {
@@ -84,6 +87,7 @@ export class UserController {
         lastName,
         email,
         dob,
+        timezone,
       });
 
       return res.send(updateUser);

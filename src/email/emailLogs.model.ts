@@ -6,6 +6,7 @@ export interface IEmailLogsLean {
   email: string;
   status: SendEmailStatus;
   errorMessage?: string;
+  isResolved: boolean;
   createdAt?: Date;
 }
 
@@ -17,6 +18,7 @@ const EmailLogsSchema: Schema = new Schema(
     email: { type: String },
     status: { type: String, enum: Object.values(SendEmailStatus) },
     errorMessage: { type: String },
+    isResolved: { type: Boolean },
   },
   { timestamps: true }
 );

@@ -36,7 +36,7 @@ export class BirthdayService {
       const userLocalTime = moment.utc().tz(user.timezone);
 
       /** Send birthday email at 9AM in the local time */
-      if (userLocalTime.hour() === 5 && userLocalTime.minute() === 18) {
+      if (userLocalTime.hour() === 9 && userLocalTime.minute() === 0) {
         console.log(
           `Sending birthday message to ${
             user.firstName

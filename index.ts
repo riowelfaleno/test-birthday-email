@@ -14,7 +14,7 @@ app.use(bodyParser.json({ type: "application/json" }));
 app.use("/email", EmailRouter);
 app.use("/user", UserRouter);
 
-/** Cronjob to send birthday greetings */
+/** Cronjob to send birthday greetings set to run every 30th minute */
 cron.schedule(
   "*/30 * * * *",
   async () => {
